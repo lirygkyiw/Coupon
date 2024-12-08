@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Verzilver Systeem</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    input {
+      padding: 10px;
+      width: 100%;
+      max-width: 250px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 8px 15px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3; 
+    }
+
+    #message {
+      margin-top: 15px;
+      font-size: 16px;
+    }
+
+    #image {
+      margin-top: 20px;
+      max-width: 300px; 
+      height: auto;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Verzilver je code</h1>
+    <input type="text" id="codeInput" placeholder="Voer je code in">
+    <button id="verzilverBtn">Verzilver Code</button>
+    <p id="message"></p>
+    <img id="image" src="" alt="Afbeelding bij code">
+  </div>
+
+  <script>
+
+    const unlimitedCodes = {
+      "Sam": "Sam.jpg",
+      "404": "404.jpg",
+      "Techlab": "Techlab.jpg",
+      "Docent404": "Docent404.jpg"
+    };
+
+
+    const validCodes = {
+      "Docter": "Docent.jpg",
+      "Raggers": "Docent.jpg",
+      "Buitenhuis": "Docent.jpg",
+      "Spoelstra": "Docent.jpg",
+      "Kolk": "Docent.jpg",
+      "Huetink": "Docent.jpg",
+      "Nennie":"Docent.jpg",
+      "Roskam":"Docent.jpg",
+      "Prins":"Docent.jpg",
+      "Ijserman":"Docent.jpg",
+      "Pieffers":"Docent.jpg"
+    };
+
+    document.getElementById('verzilverBtn').addEventListener('click', function() {
+      const userInput = document.getElementById('codeInput').value.trim();
+      const messageElement = document.getElementById('message');
+      const imageElement = document.getElementById('image');
+
+
+      if (unlimitedCodes[userInput]) {
+        messageElement.textContent = "Je onbeperkte code is succesvol verzilverd!";
+        messageElement.style.color = "green";
+
+
+        imageElement.src = unlimitedCodes[userInput];
+        imageElement.style.display = "block";
+      } 
+
+      else if (validCodes[userInput]) {
+        messageElement.textContent = "Je code is succesvol verzilverd!";
+        messageElement.style.color = "green";
+        
+        imageElement.src = validCodes[userInput];
+        imageElement.style.display = "block";
+
+        setTimeout(function() {
+          imageElement.style.display = "none";
+        }, 30000); 
+      } else {
+        messageElement.textContent = "Ongeldige code. Probeer het opnieuw.";
+        messageElement.style.color = "red";
+        imageElement.style.display = "none"; 
+      }
+       
+    });
+  </script>
+</body>
+</html>
