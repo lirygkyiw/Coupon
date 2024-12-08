@@ -74,15 +74,13 @@
   </div>
 
   <script>
-
     const unlimitedCodes = {
       "Sam": "Sam.jpg",
       "404": "404.jpg",
       "Techlab": "Techlab.jpg",
       "Docent404": "Docent404.jpg"
     };
-
-
+  
     const validCodes = {
       "Docter": "Docent.jpg",
       "Raggers": "Docent.jpg",
@@ -96,39 +94,53 @@
       "Ijserman":"Docent.jpg",
       "Pieffers":"Docent.jpg"
     };
-
+  
     document.getElementById('verzilverBtn').addEventListener('click', function() {
       const userInput = document.getElementById('codeInput').value.trim();
       const messageElement = document.getElementById('message');
       const imageElement = document.getElementById('image');
-
-
+  
+      // Controleer of de code een onbeperkte code is
       if (unlimitedCodes[userInput]) {
         messageElement.textContent = "Je onbeperkte code is succesvol verzilverd!";
         messageElement.style.color = "green";
-
-
+  
+        // Toon de afbeelding voor onbeperkte code
         imageElement.src = unlimitedCodes[userInput];
         imageElement.style.display = "block";
       } 
-
+      // Controleer of de code een geldige eenmalige code is
       else if (validCodes[userInput]) {
-        messageElement.textContent = "Je code is succesvol verzilverd!";
-        messageElement.style.color = "green";
-        
-        imageElement.src = validCodes[userInput];
-        imageElement.style.display = "block";
-
-        setTimeout(function() {
+        // Controleer of de code al is verzilverd
+        if (localStorage.getItem(userInput)) {
+          messageElement.textContent = "Deze code is al verzilverd!";
+          messageElement.style.color = "orange";
           imageElement.style.display = "none";
-        }, 30000); 
-      } else {
+        } else {
+          // Markeer de code als gebruikt
+          localStorage.setItem(userInput, "used");
+          messageElement.textContent = "Je code is succesvol verzilverd!";
+          messageElement.style.color = "green";
+  
+          // Toon de afbeelding voor eenmalige code
+          imageElement.src = validCodes[userInput];
+          imageElement.style.display = "block";
+  
+          // Verberg de afbeelding na 30 seconden
+          setTimeout(function() {
+            imageElement.style.display = "none";
+          }, 30000);
+        }
+      } 
+      // Ongeldige code
+      else {
         messageElement.textContent = "Ongeldige code. Probeer het opnieuw.";
         messageElement.style.color = "red";
         imageElement.style.display = "none"; 
       }
-       
+      
     });
   </script>
+  
 </body>
 </html>
